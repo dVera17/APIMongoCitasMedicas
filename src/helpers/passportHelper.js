@@ -4,9 +4,9 @@ import { validarToken } from "../middlewares/mwJWT.js";
 
 passport.use(new BearerStrategy(
     async function (token, done) {
-        const usuario = await validarToken(token)
-        if (!usuario) return done(null, false);
-        return done(null, usuario); // El token es válido y se agrega el documento de la colección token a req.user
+        const cliente = await validarToken(token)
+        if (!cliente) return done(null, false);
+        return done(null, cliente); // El token es válido y se agrega el documento de la colección token a req.user
     }
 ));
 export default passport;
