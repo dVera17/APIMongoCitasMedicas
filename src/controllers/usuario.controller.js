@@ -5,7 +5,7 @@ let usuario = db.collection("usuario");
 
 const getPacientes = async (req, res) => {
     try {
-        let result = await usuario.find({}).toArray();
+        let result = await usuario.find({}).sort({ nombre: 1 }).toArray();
         res.send(result);
     } catch (error) {
         let err = new ErrorHandler(error);
