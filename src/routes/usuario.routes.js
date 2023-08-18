@@ -4,6 +4,6 @@ import { usuarioController } from "../controllers/usuario.controller.js";
 const router = Router();
 
 router
-    .get('/', usuarioController.getPacientes)
+    .get('/', limiter(), usuarioController.getPacientes)
 
 export default router;
