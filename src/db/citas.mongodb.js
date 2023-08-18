@@ -109,16 +109,6 @@ db.cliente.insertMany([
         user: "admin101",
         email: "admin101@gmail.com",
         rol: "admin"
-    },
-    {
-        user: "medico101",
-        email: "medico101@gmail.com",
-        rol: "medico"
-    },
-    {
-        user: "user101",
-        email: "user101@hotmail.com",
-        rol: "usuario"
     }
 ])
 
