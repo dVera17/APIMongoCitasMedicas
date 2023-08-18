@@ -8,7 +8,8 @@ const getCitas = async (req, res) => {
         let result = await cita.find({}).sort({ fecha: 1 }).toArray();
         res.send(result);
     } catch (error) {
-        
+        let err = new ErrorHandler(error);
+        res.status(err.status).send(err.showMessage());
     }
 }
 
