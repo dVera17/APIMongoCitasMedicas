@@ -5,5 +5,6 @@ const router = Router();
 
 router
     .get('/', limiter(), usuarioController.getPacientes)
+    .get('/proxima_cita/:dni', limiter(), usuarioController.getProximaCita)
 
 export default router;
