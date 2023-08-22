@@ -7,5 +7,6 @@ router
     .get('/', limiter(), usuarioController.getPacientes)
     .get('/proxima_cita/:dni', limiter(), usuarioController.getProximaCita)
     .get('/medico/:med_matri', limiter(), usuarioController.getPacitentesMismoDoctor)
+    .get('/consultoria/:dni', limiter(), usuarioController.getConsultorias)
 
 export default router;

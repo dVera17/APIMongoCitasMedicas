@@ -43,7 +43,7 @@ const getPacitentesMismoDoctor = async (req, res) => {
                 }
             },
             {
-                $match: { "citas.cod_matriProfesional_med": req.params.med_matri }
+                $match: { "citas.cod_matriProfesional_med": parseInt(req.params.med_matri) }
             }
         ])
         res.send(result)
@@ -53,8 +53,61 @@ const getPacitentesMismoDoctor = async (req, res) => {
     }
 }
 
+const getConsultorias = async (req, res) => {
+    try {
+        let result = await cita.aggregate([
+            {
+                $match: {
+                    dni_usuario: parseInt(req.params.dni),
+                    estado: "programada"
+                }
+            },
+            {
+                $lookup: {
+                    from: "medico",
+                    localField: "cod_matriProfesional_med",
+                    foreignField: "cod_matriProfesional",
+                    as: "medico"
+                }
+            },
+            {
+                $lookup: {
+                    from: "especialidad",
+                    localField: "medico.id_especialidad",
+                    foreignField: "id",
+                    as: "especialidad"
+                }
+            },
+            {
+                $lookup: {
+                    from: "consultorio",
+                    localField: "medico.id_consultorio",
+                    foreignField: "id",
+                    as: "consultorio"
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    codigo: 1,
+                    fecha: 1,
+                    medico: { $arrayElemAt: ["$medico", 0] },
+                    especialidad: { $arrayElemAt: ["$especialidad", 0] },
+                    consultorio: { $arrayElemAt: ["$consultorio", 0] }
+                }
+            }
+        ]);
+        res.send(result);
+    } catch (error) {
+        let err = new ErrorHandler(error);
+        res.status(err.status).send(err.showMessage());
+
+    }
+}
+
 export const usuarioController = {
     getPacientes,
     getProximaCita,
-    getPacitentesMismoDoctor
+    getPacitentesMismoDoctor,
+    getConsultorias
 }
