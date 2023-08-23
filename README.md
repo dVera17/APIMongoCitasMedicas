@@ -19,7 +19,7 @@
     ```Javascript
     // .env
     JWT_PRIVATE_KEY = "clave secreta"
-    PORT_SERVER = "puerto"
+    PORT_SERVER = puerto
     DB_USER = "user de mongo"
     DB_PASSWORD = "password"
     DB_NAME = "nombre de la base de datos"
